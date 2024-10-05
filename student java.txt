@@ -1,0 +1,114 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    private int id;
+    private String name;
+    private String department;
+
+    public Student(int id, String name, String department) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    // toString method to print student details
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Department: " + department;
+    }
+}
+
+// Main class for Student Management System
+public class StudentManagementSystem {
+    // List to hold student records
+    private ArrayList<Student> students = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+
+    // Method to add a new student
+    public void addStudent() {
+        System.out.print("Enter Student ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+        System.out.print("Enter Student Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Department: ");
+        String department = scanner.nextLine();
+
+        Student student = new Student(id, name, department);
+        students.add(student);
+        System.out.println("Student added successfully!");
+    }
+
+    // Method to display all students
+    public void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+        } else {
+            System.out.println("Student List:");
+            for (Student student : students) {
+                System.out.println(student);
+            }
+        }
+    }
+
+    // Method to search for a student by ID
+    public void searchStudent() {
+        System.out.print("Enter Student ID to search: ");
+        int id = scanner.nextInt();
+
+        for (Student student : students) {
+            if (student.getId() == id) {
+                System.out.println("Student found: " + student);
+                return;
+            }
+        }
+        System.out.println("Student with ID " + id + " not found.");
+    }
+
+    // Main menu
+    public void menu() {
+        while (true) {
+            System.out.println("\n--- Student Management System ---");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display Students");
+            System.out.println("3. Search Student");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addStudent();
+                    break;
+                case 2:
+                    displayStudents();
+                    break;
+                case 3:
+                    searchStudent();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        StudentManagementSystem sms = new StudentManagementSystem();
+        sms.menu();
+    }
+}
